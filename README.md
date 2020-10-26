@@ -19,9 +19,9 @@ http://localhost:8080
 |:-:|:--|:--|
 |GET|/channels|チャンネル名一覧を返す|
 
-## Test
+## Local Test
 
-start server (debug mode)
+start server locally (debug mode)
 
 ```bash
 python main.py
@@ -43,4 +43,18 @@ curl -X GET "http://localhost:8080/users" | jq
 # GET recommended users
 curl -X GET "http://localhost:8080/users/search" -d "kw=test" | jq
 curl -X GET "http://localhost:8080/users/search" -d "kw=test" -d "max=5" | jq
+```
+
+## Cloud Test
+
+deploy (DEPROYMENT.md参照)
+
+http request (curl and jq)
+
+```bash
+# GET users
+curl -X GET "http://localhost:8080/users" | jq
+# GET recommended users
+curl -X GET "http://localhost:8080/users/search?kw=test" | jq
+curl -X GET "http://localhost:8080/users/search?kw=test&max=5" | jq
 ```
