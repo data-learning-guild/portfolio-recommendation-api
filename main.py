@@ -28,22 +28,27 @@ api = Api(app)
 dammy_users = [
     {
         "name": 'やまだたろう',
+        "uuid": 'URDDX224S',
         "score": 0.34
     },
     {
         "name": 'うえだじろう',
+        "uuid": 'URDDX224S',
         "score": 0.45
     },
     {
         "name": 'さとうごろう',
+        "uuid": 'URDDX224S',
         "score": 0.56
     },
     {
         "name": 'すずきたつろう',
+        "uuid": 'URDDX224S',
         "score": 0.67
     },
     {
         "name": 'たけだしろう',
+        "uuid": 'URDDX224S',
         "score": 0.78
     }
 ]
@@ -73,7 +78,13 @@ class UserSearch(Resource):
         max_num = args.max
         sorted_dammy_list = sorted(dammy_users, key=lambda x: x['score'], reverse=True)
         shrinked_dammy_list = sorted_dammy_list[:max_num]
-        return {'recommended_users': shrinked_dammy_list}
+
+        # make response
+        response = {
+            "kw": search_word,
+            "recommended_users": shrinked_dammy_list
+        }
+        return response
 
 ##
 ## Actually setup the Api resource routing here
