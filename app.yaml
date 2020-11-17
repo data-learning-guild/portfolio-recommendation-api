@@ -3,3 +3,6 @@ runtime: python38
 entrypoint: gunicorn -b :$PORT main:app
 
 service: mentaiko-api
+
+env_variables:
+    CLOUD_STORAGE_BUCKET: salck-visualization.appspot.com
