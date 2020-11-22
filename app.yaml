@@ -1,5 +1,14 @@
+# https://cloud.google.com/appengine/docs/standard/python3/config/appref
+# https://cloud.google.com/appengine/docs/flexible/python/configuring-your-app-with-app-yaml
+# https://cloud.google.com/appengine/docs/standard
+
 runtime: python38
 
 entrypoint: gunicorn -b :$PORT main:app
 
 service: mentaiko-api
+
+instance_class: F4_1G
+
+env_variables:
+    CLOUD_STORAGE_BUCKET: salck-visualization.appspot.com

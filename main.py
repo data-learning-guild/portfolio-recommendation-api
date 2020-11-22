@@ -14,77 +14,29 @@
 # 
 # Flask-RESTful: Doc
 # https://flask-restful.readthedocs.io/en/latest/quickstart.html#resourceful-routing
+# App Engine + Cloud Storage
+# https://cloud.google.com/appengine/docs/standard/python3/using-cloud-storage?hl=ja
+# App Engine + Cloud Storage (Sample)
+# https://cloud.google.com/appengine/docs/standard/python/googlecloudstorageclient/app-engine-cloud-storage-sample
+# https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/storage/appengine-client
+#
+# https://cloud.google.com/storage/docs/reference/libraries
+# https://cloud.google.com/storage/docs/downloading-objects#storage-download-object-code-sample
+# https://cloud.google.com/storage/docs/listing-objects#storage-list-objects-python
 
 # [START gae_python38_app]
-from flask import Flask
-from flask_restful import Resource, Api, reqparse
+import json
 
+from flask import Flask
+from flask_restful import Api
+
+from recommendation_api.resources import User, UserSearch
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
 app = Flask(__name__)
 api = Api(app)
 
-dammy_users = [
-    {
-        "name": 'やまだたろう',
-        "uuid": 'URDDX224S',
-        "score": 0.34
-    },
-    {
-        "name": 'うえだじろう',
-        "uuid": 'URDDX224S',
-        "score": 0.45
-    },
-    {
-        "name": 'さとうごろう',
-        "uuid": 'URDDX224S',
-        "score": 0.56
-    },
-    {
-        "name": 'すずきたつろう',
-        "uuid": 'URDDX224S',
-        "score": 0.67
-    },
-    {
-        "name": 'たけだしろう',
-        "uuid": 'URDDX224S',
-        "score": 0.78
-    }
-]
-
-class User(Resource):
-    def get(self):
-        """Get users list
-        """
-        users = [x['name'] for x in dammy_users]
-        return {'users': users}
-
-class UserSearch(Resource):
-        
-    def __init__(self):
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('kw', required=True, type=str)
-        self.parser.add_argument('max', required=False, type=int, default=3)
-
-    def get(self):
-        """Get users those are interested in search_word.
-            Arguments.
-                search_word: -
-                max_num: recommend user list max size
-        """
-        args = self.parser.parse_args()
-        search_word = args.kw
-        max_num = args.max
-        sorted_dammy_list = sorted(dammy_users, key=lambda x: x['score'], reverse=True)
-        shrinked_dammy_list = sorted_dammy_list[:max_num]
-
-        # make response
-        response = {
-            "kw": search_word,
-            "recommended_users": shrinked_dammy_list
-        }
-        return response
 
 ##
 ## Actually setup the Api resource routing here
