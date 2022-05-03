@@ -1,17 +1,20 @@
 # How to deploy
 
-## ref
+---
 
-- [gcloud app deploy | Google Cloud SDK Reference](https://cloud.google.com/sdk/gcloud/reference/app/deploy)
-- [App Engine Standard Testing and Deploying | Google Cloud Guide](https://cloud.google.com/appengine/docs/standard/python3/testing-and-deploying-your-app)
-- [app yaml 構成定義ファイルリファレンス | Google Cloud Reference](https://cloud.google.com/appengine/docs/standard/python3/config/appref)
+## 構成定義ファイル ( `app.yaml` )
 
-## 構成定義ファイル
-
+- Pythonランタイムの指定
+  - `runtime: python38`
 - エントリポイントの指定
   - デフォルトは、main.py:app
   - `entrypoint: gunicorn -b :$PORT main:app`
-- Pythonランタイムの指定
+- サービス名の指定
+  - `service: $YOUR_SERVICE_NAME`
+- インスタンスクラスの指定
+  - `instance_class: $INSTANCE_CLASS_NAME`
+- 環境変数の指定
+  - `env_variables: ...`
 
 
 ## gcloud によるデプロイ
@@ -26,3 +29,11 @@ gcloud app deploy ~/my-directory/app.yaml --project=PROJECT_ID
 ## Service へのアクセス
 
 Entrypoint URL: `https://[service_name]`
+
+---
+
+## References
+
+- [gcloud app deploy | Google Cloud SDK Reference](https://cloud.google.com/sdk/gcloud/reference/app/deploy)
+- [App Engine Standard Testing and Deploying | Google Cloud Guide](https://cloud.google.com/appengine/docs/standard/python3/testing-and-deploying-your-app)
+- [app yaml 構成定義ファイルリファレンス | Google Cloud Reference](https://cloud.google.com/appengine/docs/standard/python3/config/appref)
